@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        body{
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Calculator</h1>
+    <p>This calculator is used to evaluate <b>arithmetic expressions</b> which contains Brackets () , '+' , '-' , '*' , '/' operators</p>
+    <p>Input rules:</p>
+    <p>Division of any number by zero will result in Infinity so it should be avoided</p>
+    <p>Two operators together will result in wrong answer.Avoid this type of expression(1*-2).Write this instead(1*(-2)).</p>
+    <p>No. of opening brackets should always be equal to no. of closing brackets.((1+2)+3 is invalid expression</p>
+    <p>Avoid alphabets in the expression</p>
+    <h3>Sample valid expression:10+2*(6-(4+1)/2)+7</h3>
+    <input type="text" id="box" placeholder="Enter the valid expression" size="50%">
+    <input type="button" value="Evaluate" onclick="calculateExpression()">
+    <div>
+        <h3>The result is:</h3>
+        <h3 id="result"></h3>
+    </div>
+</body>
+
+<script>
+function evaluate(expression) {
+            expression = expression.replace(/\s/g, '');
+            return calculate(Array.from(expression), 0);
+        }
+
+        function calculateExpression() {
+            const expression = document.getElementById('box').value;
+            const result = evaluate(expression);
+            document.getElementById('result').innerHTML = result;
+        }
+function calculate(str, index) {
+  var stack=[];
+  var sign='+';
+  var number=0;
+
+  for(let i=index;i<str.length;i++){
+    var current=str[i];
+    if(current>='0' && current<='9')
+    number=number*10+(current-'0');
+
+    if(!(current>='0' && current<='9') || i===str.length-1){
+        if(current=='('){
+            number=calculate(str,i+1);
+            let opening_parentheses=1;
+            let closing_parantheses=0;
+
+            for(let j=i+1;j<str.length;j++){
+                if(str[j]===')')
+                {
+                    closing_parantheses++;
+                    if(opening_parentheses===closing_parantheses){
+                    i=j;
+                    break;
+                    }
+
+                }
+                else if(str[j]=='('){
+                    opening_parentheses++;
+                }
+            }
+}
+
+        let pre=-1;
+        switch(sign){
+            case '+':
+                stack.push(number);
+                break;
+                
+            case '-':
+                stack.push(number*-1);
+                break;
+                
+            case '*':
+                pre=stack.pop();
+                stack.push(pre*number);
+                break;
+
+            case '/':
+                pre=stack.pop();
+                stack.push(pre/number);
+                break;
+        }
+        sign=current;
+        number=0;
+        if(current===')')
+        break;
+    }
+  }
+  let ans = 0;
+  while (stack.length > 0) {
+    ans += stack.pop();
+  }
+  return ans;
+}
+</script>
+</html>
