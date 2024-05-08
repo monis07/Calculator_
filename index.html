@@ -7,6 +7,23 @@
     <style>
         body{
             text-align: center;
+            color:white;
+            background-color: black;
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        input{
+            font-size: 1rem;
+            padding: 0.5rem;
+            border-radius: 10px;
+            border: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            outline-color: black;
+        }
+        .button{
+            font-weight: 500;
+            background-color:aquamarine;
+            cursor: pointer;
+        
         }
     </style>
 </head>
@@ -21,7 +38,7 @@
     <p>Avoid alphabets in the expression</p>
     <h3>Sample valid expression:10+2*(6-(4+1)/2)+7</h3>
     <input type="text" id="box" placeholder="Enter the valid expression" size="50%">
-    <input type="button" value="Evaluate" onclick="calculateExpression()">
+    <input type="button" class="button" value="Evaluate" onclick="calculateExpression()">
     <div>
         <h3>The result is:</h3>
         <h3 id="result"></h3>
